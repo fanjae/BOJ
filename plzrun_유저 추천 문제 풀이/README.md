@@ -1,6 +1,5 @@
 User : Fanjae
-BOJ 연습.
-알고리즘 문제 풀이.
+Tistory의 'plzrun' 님이 추천한 문제를 푸는 곳입니다.
 
 참고 사이트 : https://plzrun.tistory.com/entry/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4PS-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0
 
