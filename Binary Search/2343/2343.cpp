@@ -1,3 +1,9 @@
+/* 
+https://www.acmicpc.net
+Problem ID : 2343
+Binary Search
+*/
+
 #include <stdio.h>
 int n,m;
 int data[100005];
