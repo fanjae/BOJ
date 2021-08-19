@@ -1,3 +1,9 @@
+/* 
+https://www.acmicpc.net
+Problem ID : 14728
+DP(Dynamic Programming)
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include <algorithm>
@@ -17,8 +23,8 @@ int data(int index, int time)
 	{
 		return dp[index][time];
 	}
-	ret = data(index+1,time);
-	if(time - exam[index][0] >= 0) ret = max(ret, data(index+1,time-exam[index][0]) + exam[index][1]);
+	ret = data(index+1,time); // 해당 과목을 선택하지 않음.
+	if(time - exam[index][0] >= 0) ret = max(ret, data(index+1,time-exam[index][0]) + exam[index][1]); // 시간안에 준비 할 수 있고,해당 과목 선택하고자 함. 
 	
 	return ret;
 }
