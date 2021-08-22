@@ -14,7 +14,7 @@ int sum = 0;
 int count = 0;
 int dx[4]={1,-1,0,0};
 int dy[4]={0,0,1,-1};
-bool safe(int x, int y)
+bool safe(int x, int y) // 충돌 여부 확인 
 {
 	if(x < 0 || x >= m)
 	{
