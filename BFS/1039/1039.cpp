@@ -1,105 +1,109 @@
-/* BOJ : 1039 수정 필요 */ 
+/* 
+https://www.acmicpc.net
+Problem ID : 1039
+BFS(Breadth first search)
+*/
 
 #include <iostream>
 #include <string.h>
 #include <queue>
+#include <map>
 
 using namespace std;
 
-int count[1000005];
-string n_value;
-int n,k;
-int str_len;
-int max_value;
+struct my_pair
+{
+	string data;
+	int count;
+};
 
+map <string, bool> visited[15]; // k번 연산했을때 해당 문자를 만들 수 있는가 조회 
+string n;
+int k;
+int answer = -1;
 void bfs()
 {
-	queue <int> que;
-	n = stoi(n_value);
-	que.push(n);
-	count[n] = 0;
+	int n_value;
+	int str_size;
+	int now_swap_count = 0;
 	
-	while(!que.empty())
+	string n_str;
+	queue <my_pair> que;
+	que.push({n,0});
+	str_size = n.length();
+
+	while(!que.empty() && now_swap_count < k) // queue가 비어있거나, k번 횟수를 넘어가지 않을때 까지 반복 
 	{
-		int que_n = que.front();
-		string temp = to_string(que_n);
-		string temp2 = temp;
-		int n_temp;
+		n_value = stoi(que.front().data);
+		n_str = que.front().data;
+		now_swap_count = que.front().count;
 		
-		if(count[que_n] == k)
-		{
-			if(max_value < que_n)
-			{
-				max_value = que_n;
-			}
-		}
-		else if(count[que_n] > k)
+		if(now_swap_count > k)
 		{
 			break;
 		}
 		que.pop();
 		
-		for(int i=0; i<str_len-1; i++)
+		for(int i=0; i<str_size-1; i++)
 		{
-			for(int j=i+1; j<str_len; j++)
+			int new_temp;
+			for(int j=i+1; j<str_size; j++)
 			{
-				temp2 = temp;
-				if(i == 0 && temp[j] == 0)
+				if(i == 0 && n_str[j] == '0') // 맨 앞자리가 0이 되는 경우는 없음. 
 				{
 					continue;
 				}
-				char set = temp2[i];
-				temp2[i] = temp2[j];
-				temp2[j] = set;
-				cout << temp2 << "\n";
-				n_temp = stoi(temp2);
-				
-				if(n_temp >= 1000001)
+				else
 				{
-					continue;
+					if(now_swap_count < k)
+					{
+						swap(n_str[i],n_str[j]);
+						new_temp = stoi(n_str);
+						
+						if(visited[now_swap_count+1].find(n_str) == visited[now_swap_count+1].end()) // k번 연산을 했을때 해당 숫자를 이미 방문한 적이 있는지 확인 
+						{
+							visited[now_swap_count+1][n_str] = true;
+							que.push({n_str,now_swap_count+1});	
+							
+							
+							if((now_swap_count+1) % 2 == (k % 2)) // k번 이하에서 k와 나머지가 같다면(둘다 짝수거나 둘다 홀수라면) 연산을 k번해서 만들 수 있다. 
+							{	
+								if(new_temp > answer) 
+								{
+									answer = new_temp;
+								}
+							}
+						}
+						swap(n_str[i],n_str[j]);
+					}
 				}
-				if(count[n_temp] == -1)
-				{
-					count[n_temp] = count[que_n] + 1;
-					que.push(n_temp);
-				}
-				
 			}
-		}
+		}	
 	}
-	for(int i=1000000; i>=1; i--)
-	{
-		if(count[i] == -1)
-		{
-			continue;
-		}
-		if(k % 2 == 0)
-		{
-			if(count[i] % 2 == 0 && k % 2 == 0)
-			{
-				printf("%d\n",i);
-				return ;
-			}
-		}
-		else
-		{
-			if(count[i] % 2 == 1 && k % 2 == 1)
-			{
-				printf("%d\n",i);
-				return ;
-			}	
-		}
-	}
-	printf("-1\n");
-}
 	
+	if(answer == -1)
+	{
+		cout << "-1\n";
+	}
+	else
+	{
+		cout << answer << "\n";
+	}
+}	
 int main(void)
 {
-	cin >> n_value >> k;
-	str_len = n_value.length();
+	/* C++ 입출력 속도  
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	*/
 	
-	memset(count,-1,sizeof(count));
-	max_value = stoi(n_value);
+	cin >> n >> k;
+	
+	if(n.length() == 1 || (n.length() == 2 && n[1] == '0')) // 1자리거나 2자리인데 맨뒤가 0인경우 교환 성립 불가 
+	{
+		cout << "-1\n";
+		return 0;
+	}
 	bfs();
-	
 }
