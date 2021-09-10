@@ -1,6 +1,6 @@
 /* 
 https://www.acmicpc.net
-Problem ID : 11441
+Problem ID : 2312
 Sieve of Eratosthenes
 */
 #include <stdio.h>
