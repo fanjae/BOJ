@@ -2,6 +2,7 @@
 https://www.acmicpc.net
 Problem ID : 10942
 DP(Dynamic Programming)
+
 */
 
 #include <stdio.h>
