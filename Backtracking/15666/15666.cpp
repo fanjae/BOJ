@@ -10,7 +10,6 @@ Backtracking
 using namespace std;
 int data[10];
 int output[10];
-bool visited[10];
 int n,m;
 
 void back(int cnt, int last)
@@ -28,11 +27,11 @@ void back(int cnt, int last)
 	
 	for(int i=0; i<n; i++)
 	{
-		if(depth[data[i]] == true) // i번째에 방문한 적 있거나, 해당 숫자를 같은 depth에서 사용한적이 있는가? 
+		if(depth[data[i]] == true) // 해당 숫자를 같은 depth에서 사용한적이 있는가? 
 		{
 			continue;
 		}
-		if(last > data[i])
+		if(last > data[i]) // 다음 숫자가 이전보다 커야한다. (비내림차순) 
 		{
 			continue;
 		}
